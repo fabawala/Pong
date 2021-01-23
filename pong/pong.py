@@ -27,7 +27,6 @@ class PongBall(Widget):
     def move(self):
         self.pos = Vector(*self.velocity) + self.pos
 
-
 # root widget
 class PongGame(Widget):
     ball = ObjectProperty(None)
