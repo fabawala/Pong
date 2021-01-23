@@ -1,8 +1,8 @@
-# name of kv file MUST match the name of the app.
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import (
-    NumericProperty, ReferenceListProperty, ObjectProperty)
+    NumericProperty, ReferenceListProperty, ObjectProperty
+)
 from kivy.vector import Vector
 from kivy.clock import Clock
 
@@ -27,6 +27,7 @@ class PongBall(Widget):
     def move(self):
         self.pos = Vector(*self.velocity) + self.pos
 
+
 # root widget
 class PongGame(Widget):
     ball = ObjectProperty(None)
@@ -49,11 +50,11 @@ class PongGame(Widget):
             self.ball.velocity_y *= -1
 
         # went off to the side to score
-        if (self.ball.x < self.x):
+        if self.ball.x < self.x:
             self.player2.score += 1
             self.serve_ball(vel=(4, 0))
-        if (self.ball.right > self.width):
-            self.player2.score += 1
+        if self.ball.right > self.width:
+            self.player1.score += 1
             self.serve_ball(vel=(-4, 0))
 
     def on_touch_move(self, touch):
