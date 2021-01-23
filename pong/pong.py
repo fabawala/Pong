@@ -16,7 +16,7 @@ class PongPaddle(Widget):
             offset = (ball.center_y - self.center_y) / (self.height / 2)
             bounced = Vector(-1 * vx, vy)
             vel = bounced * 1.1
-            ball.velocity = vel.x, vel.y, + offset
+            ball.velocity = vel.x, vel.y + offset
 
 
 class PongBall(Widget):
@@ -28,7 +28,6 @@ class PongBall(Widget):
         self.pos = Vector(*self.velocity) + self.pos
 
 
-# root widget
 class PongGame(Widget):
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
@@ -45,15 +44,15 @@ class PongGame(Widget):
         self.player1.bounce_ball(self.ball)
         self.player2.bounce_ball(self.ball)
 
-        # bounce off top and bottom
+        # bounce ball off bottom or top
         if (self.ball.y < self.y) or (self.ball.top > self.top):
             self.ball.velocity_y *= -1
 
-        # went off to the side to score
+        # went of to a side to score point?
         if self.ball.x < self.x:
             self.player2.score += 1
             self.serve_ball(vel=(4, 0))
-        if self.ball.right > self.width:
+        if self.ball.x > self.width:
             self.player1.score += 1
             self.serve_ball(vel=(-4, 0))
 
@@ -68,7 +67,7 @@ class PongApp(App):
     def build(self):
         game = PongGame()
         game.serve_ball()
-        Clock.schedule_interval(game.update, 1.0/60.0)
+        Clock.schedule_interval(game.update, 1.0 / 60.0)
         return game
 
 
